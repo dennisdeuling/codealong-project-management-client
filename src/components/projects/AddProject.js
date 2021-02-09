@@ -13,9 +13,10 @@ class AddProject extends Component {
 		const {title, description} = this.state;
 		axios
 			.post('http://localhost:5000/api/projects', {
-				title, description
+				title,
+				description
 			})
-			.then((result) => {
+			.then(result => {
 				this.props.getData();
 				this.setState({
 					title: '',
@@ -61,13 +62,14 @@ class AddProject extends Component {
 					<input type="text"
 						   name="title"
 						   value={this.state.title}
-						   onChange={e => this.handleChange(e)}/>
+						   onChange={event => this.handleChange(event)}/>
 					<label>Description:</label>
 					<textarea name="description"
 							  value={this.state.description}
-							  onChange={e => this.handleChange(e)}/>
+							  onChange={event => this.handleChange(event)}/>
 
-					<input type="submit" value="Submit"/>
+					<input type="submit"
+						   value="Submit"/>
 				</form>
 			</div>
 		);

@@ -55,7 +55,8 @@ class EditProject extends Component {
 							  value={this.state.description}
 							  onChange={event => this.handleChangeDesc(event)}/>
 
-					<input type="submit" value="Submit"/>
+					<input type="submit"
+						   value="Submit"/>
 				</form>
 			</div>
 		);
