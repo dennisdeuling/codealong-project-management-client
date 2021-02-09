@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+codealong-project-management-client.iml
+modules.xml
+vcs.xml
+saveactions_settings.xml
+.idea*

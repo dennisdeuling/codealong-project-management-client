@@ -1,58 +1,77 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
- 
+
 class AddProject extends Component {
-  state = { 
-      title: "", 
-      description: "",
-      status: ""
-    }
-   
-  handleFormSubmit = (event) => {
-    event.preventDefault();
+	state = {
+		title: '',
+		description: '',
+		status: ''
+	};
 
-    axios.post('http://localhost:5000/api/projects', {
-        title: this.state.title,
-        description: this.state.description
-    })
-    .then( (res) => {
-        this.props.getData();
-        this.setState({
-            title: "",
-            description: "",
-            status: "Your project was created"
-        });
-    }, (err) => {
-        console.log(err);
-        this.setState({
-            status: "Oops, something went wrong"
-        });
-    });
-  }
- 
-  handleChange = (event) => {  
-      const {name, value} = event.target;
-      this.setState({[name]: value});
-  }
- 
-  render(){
-    return(
-      <React.Fragment>
+	handleFormSubmit = event => {
+		event.preventDefault();
+		const {title, description} = this.state;
+		axios
+			.post('http://localhost:5000/api/projects', {
+				title, description
+			})
+			.then((result) => {
+				this.props.getData();
+				this.setState({
+					title: '',
+					description: '',
+					status: 'Your project is created'
+				});
+			}, error => {
+				this.setState({
+					status: 'Oh No, we got an error'
+				});
+			});
 
-        { this.state.status !== '' ? <div>{this.state.status}</div> : null }
+		/* With fetch
+		fetch('http://localhost:5000/api/projects', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(this.state)
+		})
+			.then(res => res.json())
+			.then(result => {
+				console.log(result);
+			}, error => {
+				console.log(error);
+			});
+		 */
+	};
 
-        <form onSubmit={this.handleFormSubmit}>
-          <label>Title:</label>
-          <input type="text" name="title" value={this.state.title} onChange={ e => this.handleChange(e)}/>
-          
-          <label>Description:</label>
-          <textarea name="description" value={this.state.description} onChange={ e => this.handleChange(e)} />
-          
-          <input type="submit" value="Submit" />
-        </form>
-      </React.Fragment>
-    )
-  }
+	handleChange = event => {
+		const {name, value} = event.target;
+		this.setState({
+			[name]: value
+		});
+	};
+
+	render() {
+		return (
+			<div>
+				{this.state.status !== '' ? this.state.status : this.state.status}
+				<form onSubmit={this.handleFormSubmit}>
+					<label>Title:</label>
+					<input type="text"
+						   name="title"
+						   value={this.state.title}
+						   onChange={e => this.handleChange(e)}/>
+					<label>Description:</label>
+					<textarea name="description"
+							  value={this.state.description}
+							  onChange={e => this.handleChange(e)}/>
+
+					<input type="submit" value="Submit"/>
+				</form>
+			</div>
+		);
+	}
 }
- 
+
 export default AddProject;
