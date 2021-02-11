@@ -11,7 +11,7 @@ class Signup extends Component {
 
 	service = new AuthService();
 
-	handleFormSubmit = (event) => {
+	handleFormSubmit = event => {
 		event.preventDefault();
 		const username = this.state.username;
 		const password = this.state.password;
@@ -29,7 +29,7 @@ class Signup extends Component {
 			});
 	};
 
-	handleChange = (event) => {
+	handleChange = event => {
 		const {name, value} = event.target;
 		this.setState({
 				[name]: value
@@ -46,13 +46,13 @@ class Signup extends Component {
 					<input type="text"
 						   name="username"
 						   value={this.state.username}
-						   onChange={e => this.handleChange(e)}/>
+						   onChange={event => this.handleChange(event)}/>
 
 					<label>Password:</label>
 					<input type="password"
 						   name="password"
 						   value={this.state.password}
-						   onChange={e => this.handleChange(e)}/>
+						   onChange={event => this.handleChange(event)}/>
 
 					<input type="submit" value="Signup"/>
 				</form>

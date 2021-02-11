@@ -11,7 +11,7 @@ class App extends React.Component {
 		loggedInUser: null
 	};
 
-	getTheUser = (userObj) => {
+	getTheUser = userObj => {
 		this.setState({
 			loggedInUser: userObj
 		});
