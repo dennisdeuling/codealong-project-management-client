@@ -2,6 +2,7 @@ import React from 'react';
 import {Route, Switch} from 'react-router-dom';
 import './App.css';
 import Signup from './components/auth/Signup';
+import Login from './components/auth/Login';
 import Navbar from './components/navbar/Navbar';
 import ProjectDetails from './components/projects/ProjectDetails';
 import ProjectList from './components/projects/ProjectList';
@@ -29,6 +30,9 @@ class App extends React.Component {
 				<Switch>
 					<Route exact path='/signup'
 						   render={() => <Signup
+							   getUser={this.getTheUser}/>}/>
+					<Route exact path='/'
+						   render={() => <Login
 							   getUser={this.getTheUser}/>}/>
 					<Route exact path="/projects"
 						   component={ProjectList}/>

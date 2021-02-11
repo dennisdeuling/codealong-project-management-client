@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import AuthService from './auth-service';
 import {Link} from 'react-router-dom';
 
-class Signup extends Component {
-
+class Login extends Component {
 	state = {
 		username: '',
 		password: ''
@@ -11,18 +10,17 @@ class Signup extends Component {
 
 	service = new AuthService();
 
-	handleFormSubmit = event => {
+	handleFormSubmit = (event) => {
 		event.preventDefault();
 		const username = this.state.username;
 		const password = this.state.password;
 
-		this.service.signup(username, password)
+		this.service.login(username, password)
 			.then(response => {
 				this.setState({
 					username: '',
 					password: ''
 				});
-
 				this.props.getUser(response);
 			}, error => {
 				console.log(error);
@@ -40,31 +38,27 @@ class Signup extends Component {
 	render() {
 		return (
 			<div>
-				<h3>Create your account:</h3>
 				<form onSubmit={this.handleFormSubmit}>
 
 					<label>Username:</label>
 					<input type="text"
 						   name="username"
 						   value={this.state.username}
-						   onChange={event => this.handleChange(event)}/>
+						   onChange={e => this.handleChange(e)}/>
 
 					<label>Password:</label>
-					<input type="password"
-						   name="password"
+					<input name="password"
 						   value={this.state.password}
-						   onChange={event => this.handleChange(event)}/>
+						   onChange={e => this.handleChange(e)}/>
 
-					<input type="submit" value="Signup"/>
+					<input type="submit" value="Login"/>
 				</form>
-
-				<p>Already have account?
-					<Link to={'/'}> Login</Link>
+				<p>Don't have account?
+					<Link to={'/signup'}> Signup</Link>
 				</p>
-
 			</div>
 		);
 	}
 }
 
-export default Signup;
+export default Login;
