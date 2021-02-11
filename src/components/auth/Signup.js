@@ -11,8 +11,7 @@ class Signup extends Component {
 
 	service = new AuthService();
 
-	// handleChange() and handleSubmit() will be added here
-	handleFormSubmit = event => {
+	handleFormSubmit = (event) => {
 		event.preventDefault();
 		const username = this.state.username;
 		const password = this.state.password;
@@ -23,40 +22,39 @@ class Signup extends Component {
 					username: '',
 					password: ''
 				});
-				// console.log(response);
+
 				this.props.getUser(response);
 			}, error => {
 				console.log(error);
 			});
 	};
 
-	handleChange = event => {
+	handleChange = (event) => {
 		const {name, value} = event.target;
 		this.setState({
-			[name]: value
-		});
+				[name]: value
+			}
+		);
 	};
-
 
 	render() {
 		return (
 			<div>
-				<h1>Create your own account</h1>
+				<h3>Create your account:</h3>
 				<form onSubmit={this.handleFormSubmit}>
 					<label>Username:</label>
 					<input type="text"
 						   name="username"
 						   value={this.state.username}
-						   onChange={event => this.handleChange(event)}/>
+						   onChange={e => this.handleChange(e)}/>
 
 					<label>Password:</label>
 					<input type="password"
 						   name="password"
 						   value={this.state.password}
-						   onChange={event => this.handleChange(event)}/>
+						   onChange={e => this.handleChange(e)}/>
 
-					<input type="submit"
-						   value="Signup"/>
+					<input type="submit" value="Signup"/>
 				</form>
 
 				<p>Already have account?

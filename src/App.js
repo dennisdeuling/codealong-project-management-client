@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
-import './App.css';
+import React from 'react';
 import {Route, Switch} from 'react-router-dom';
-import ProjectList from './components/projects/ProjectList';
-import ProjectDetails from './components/projects/ProjectDetails';
+import './App.css';
 import Signup from './components/auth/Signup';
+import ProjectDetails from './components/projects/ProjectDetails';
+import ProjectList from './components/projects/ProjectList';
 
-class App extends Component {
+class App extends React.Component {
 
 	state = {
 		loggedInUser: null
 	};
 
-	getTheUser = userObj => {
+	getTheUser = (userObj) => {
 		this.setState({
 			loggedInUser: userObj
 		});
@@ -20,16 +20,20 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
+
+				{
+					this.state.loggedInUser ?
+						<h1>Username: {this.state.loggedInUser.username}</h1> :
+						null
+				}
+
 				<Switch>
-					<Route exact
-						   path='/signup'
+					<Route exact path='/signup'
 						   render={() => <Signup
 							   getUser={this.getTheUser}/>}/>
-					<Route exact
-						   path="/projects"
+					<Route exact path="/projects"
 						   component={ProjectList}/>
-					<Route exact
-						   path="/projects/:id"
+					<Route path="/projects/:id"
 						   component={ProjectDetails}/>
 				</Switch>
 			</div>
