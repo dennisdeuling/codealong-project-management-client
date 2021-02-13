@@ -8,6 +8,7 @@ class ProjectDetails extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			_id: '',
 			title: '',
 			description: '',
 			owner: ''
@@ -16,10 +17,11 @@ class ProjectDetails extends Component {
 
 	componentDidMount() {
 		const params = this.props.match.params;
-		axios.get(`http://localhost:5090/api/projects/${params.id}`, {withCredentials: true})
+		axios.get(`http://localhost:5000/api/projects/${params.id}`, {withCredentials: true})
 			.then(responseFromApi => {
-				const {title, description, owner} = responseFromApi.data;
+				const {_id, title, description, owner} = responseFromApi.data;
 				this.setState({
+					_id: _id,
 					title: title,
 					description: description,
 					owner: owner
@@ -32,7 +34,7 @@ class ProjectDetails extends Component {
 
 	deleteProject = () => {
 		const {params} = this.props.match;
-		axios.delete(`http://localhost:5090/api/projects/${params.id}`, {withCredentials: true})
+		axios.delete(`http://localhost:5000/api/projects/${params.id}`, {withCredentials: true})
 			.then(() => {
 				this.props.history.push('/projects');
 			}, err => {

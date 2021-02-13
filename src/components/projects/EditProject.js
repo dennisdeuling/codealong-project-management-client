@@ -3,6 +3,7 @@ import axios from 'axios';
 
 class EditProject extends Component {
 	state = {
+		_id: this.props.theProject._id,
 		title: this.props.theProject.title,
 		description: this.props.theProject.description
 	};
@@ -20,7 +21,6 @@ class EditProject extends Component {
 			withCredentials: true
 		})
 			.then(() => {
-				this.props.getTheProject();
 				// after submitting the form, redirect to '/projects'
 				this.props.history.push('/projects');
 			}, error => {
