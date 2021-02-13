@@ -35,9 +35,11 @@ class App extends React.Component {
 						   render={() => <Login
 							   getUser={this.getTheUser}/>}/>
 					<Route exact path="/projects"
-						   component={ProjectList}/>
+						   component={ProjectList} />
 					<Route path="/projects/:id"
-						   component={ProjectDetails}/>
+						   render={ (props) => <ProjectDetails
+							   {...props}
+							   user={this.state.loggedInUser} /> } />
 				</Switch>
 			</div>
 		);

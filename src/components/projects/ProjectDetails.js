@@ -3,72 +3,63 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import EditProject from './EditProject';
 
-
 class ProjectDetails extends Component {
-	state = {
-		title: '',
-		description: ''
-	};
 
-	componentDidMount() {
-		this.getSingleProject();
+	constructor(props) {
+		super(props);
+		this.state = {
+			title: "",
+			description: "",
+			owner: ""
+		}
 	}
 
-	getSingleProject = () => {
-		const {params} = this.props.match;
-		axios
-			.get(`http://localhost:5000/api/projects/${params.projectId}`)
+	componentDidMount() {
+		const params = this.props.match.params;
+		axios.get(`http://localhost:5090/api/projects/${params.id}`, {withCredentials:true})
 			.then(responseFromApi => {
-				const {title, description, _id} = responseFromApi.data;
+				const { title, description, owner } = responseFromApi.data;
 				this.setState({
-					_id: _id,
 					title: title,
-					description: description
+					description: description,
+					owner: owner
 				});
-			}, error => {
-				console.log(error);
+			}, err => {
+				console.log(err)
 			});
-	};
+	}
 
-	// EDIT PROJECT:
-	renderEditForm = () => {
-		if (!this.state.title) {
-			this.getSingleProject();
-		} else {
-			//                                     {...props} => so we can have 'this.props.history' in Edit.js
-			//                                                                 ^
-			//                                                                 |
-			return <EditProject theProject={this.state}
-								getTheProject={this.getSingleProject} {...this.props} />;
-		}
-	};
 
-	// DELETE PROJECT:
 	deleteProject = () => {
-		const {params} = this.props.match;
-
-		axios.delete(`http://localhost:5000/api/projects/${params.projectId}`, {
-			withCredentials: true
-		})
+		const { params } = this.props.match;
+		axios.delete(`http://localhost:5090/api/projects/${params.id}`, {withCredentials:true})
 			.then(() => {
-				this.props.history.push('/projects'); // !!!
-			}, error => {
-				console.log(error);
-			});
-	};
+				this.props.history.push('/projects');
+			}, err => {
+				console.log(err)
+			})
+	}
 
 	render() {
 		return (
 			<div>
 				<h1>{this.state.title}</h1>
 				<p>{this.state.description}</p>
-				<div>{this.renderEditForm()} </div>
-				<button onClick={() => this.deleteProject()}>Delete project</button>
-				{/* <== !!! */}
-				<br/>
+				<div>
+					{
+						this.state.title !== "" &&
+						this.props.user &&
+						this.props.user._id === this.state.owner ?
+							<div>
+								<EditProject theProject={this.state} {...this.props} />
+								<button onClick={() => this.deleteProject()}>Delete project</button>
+							</div> :
+							null
+					}
+				</div>
 				<Link to={'/projects'}>Back to projects</Link>
 			</div>
-		);
+		)
 	}
 }
 
