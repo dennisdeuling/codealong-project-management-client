@@ -6,6 +6,7 @@ import Login from './components/auth/Login';
 import Navbar from './components/navbar/Navbar';
 import ProjectDetails from './components/projects/ProjectDetails';
 import ProjectList from './components/projects/ProjectList';
+import ProtectedRoute from './components/auth/protected-route';
 
 class App extends React.Component {
 
@@ -31,15 +32,35 @@ class App extends React.Component {
 					<Route exact path='/signup'
 						   render={() => <Signup
 							   getUser={this.getTheUser}/>}/>
+
 					<Route exact path='/'
 						   render={() => <Login
 							   getUser={this.getTheUser}/>}/>
-					<Route exact path="/projects"
-						   component={ProjectList} />
+
+					<ProtectedRoute
+						exact
+						user={this.state.loggedInUser}
+						path='/projects/:id'
+						component={ProjectDetails}/>
+					<ProtectedRoute
+						exact
+						user={this.state.loggedInUser}
+						path='/projects'
+						component={ProjectList}/>
+
+					{/*<Route exact path="/projects"
+						   component={ProjectList}/>*/}
+
+					{/*<Route exact path="/projects">
+						{this.state.loggedInUser ? <ProjectList/> : <Redirect to="/"/>}
+					</Route>
+
 					<Route path="/projects/:id"
-						   render={ (props) => <ProjectDetails
-							   {...props}
-							   user={this.state.loggedInUser} /> } />
+						   render={props => {
+							   return this.state.loggedInUser ?
+								   <ProjectDetails {...props} user={this.state.loggedInUser}/> :
+								   <Redirect to="/"/>;
+						   }}/>*/}
 				</Switch>
 			</div>
 		);
