@@ -29,24 +29,26 @@ class App extends React.Component {
 				<Navbar user={this.state.loggedInUser} getUser={this.getTheUser}/>
 
 				<Switch>
-					<Route exact path='/signup'
-						   render={() => <Signup
-							   getUser={this.getTheUser}/>}/>
 
-					<Route exact path='/'
-						   render={() => <Login
-							   getUser={this.getTheUser}/>}/>
+					<ProtectedRoute
+						exact
+						user={this.state.loggedInUser}
+						path='/'
+						component={ProjectList}/>
 
 					<ProtectedRoute
 						exact
 						user={this.state.loggedInUser}
 						path='/projects/:id'
 						component={ProjectDetails}/>
-					<ProtectedRoute
-						exact
-						user={this.state.loggedInUser}
-						path='/projects'
-						component={ProjectList}/>
+
+					<Route exact path='/signup'
+						   render={() => <Signup
+							   getUser={this.getTheUser}/>}/>
+
+					<Route exact path='/login'
+						   render={() => <Login
+							   getUser={this.getTheUser}/>}/>
 
 					{/*<Route exact path="/projects"
 						   component={ProjectList}/>*/}
