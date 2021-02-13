@@ -24,6 +24,7 @@ class Signup extends Component {
 				});
 
 				this.props.getUser(response);
+				this.props.history.push('/');
 			}, error => {
 				console.log(error);
 			});

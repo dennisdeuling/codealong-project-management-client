@@ -43,11 +43,13 @@ class App extends React.Component {
 						component={ProjectDetails}/>
 
 					<Route exact path='/signup'
-						   render={() => <Signup
+						   render={(props) => <Signup
+							   {...props}
 							   getUser={this.getTheUser}/>}/>
 
 					<Route exact path='/login'
-						   render={() => <Login
+						   render={(props) => <Login
+							   {...props}
 							   getUser={this.getTheUser}/>}/>
 
 					{/*<Route exact path="/projects"
