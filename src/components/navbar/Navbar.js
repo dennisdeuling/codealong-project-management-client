@@ -17,23 +17,19 @@ class Navbar extends Component {
 
 		return (
 			<div>
-				{ // or props.user && 'here comes the html with parameters'
-					this.props.user ? <h1>Welcome, {this.props.user.username}</h1> : null
+				{
+					this.props.user ?
+						<div>
+							Welcome, {this.props.user.username}
+							<br/>
+							<Link to='/'>
+								<button onClick={() => this.logoutUser()}> Logout</button>
+							</Link>
+						</div> :
+						<div>
+							<Link to="/signup">Register</Link>
+						</div>
 				}
-				<div>
-					<ul>
-						{this.props.user &&
-						<li><Link to="/projects">Projects</Link></li>}
-						{this.props.user &&
-						<Link to='/'>
-							<button onClick={() => this.logoutUser()}>Logout</button>
-						</Link>}
-						{!this.props.user &&
-						<li><Link to="/signup">Register</Link></li>}
-						{!this.props.user &&
-						<li><Link to="/">Login</Link></li>}
-					</ul>
-				</div>
 				<hr/>
 			</div>
 		);

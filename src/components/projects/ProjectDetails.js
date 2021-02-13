@@ -63,7 +63,7 @@ class ProjectDetails extends Component {
 							null
 					}
 				</div>
-				<Link to={'/projects'}>Back to projects</Link>
+				<Link to={'/'}>Back Home</Link>
 			</div>
 		);
 	}
